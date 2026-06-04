@@ -1,0 +1,22 @@
+Ratio-Based SVM Accuracy: 0.73
+
+Cross-Validated ROC AUC: 0.60
+
+Mean Diagnostic ROC AUC: 0.71
+
+Final Nested CV Accuracy:
+69.18% ± 16.02%
+
+Classification Performance:
+RRMS Precision: 0.84
+RRMS Recall: 0.75
+
+SPMS Precision: 0.62
+SPMS Recall: 0.75
+
+Permutation Test:
+AUC = 0.6527
+P-value = 0.0798
+
+External Validation:
+AUC = 0.7568

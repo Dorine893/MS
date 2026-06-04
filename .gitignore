@@ -1,0 +1,6 @@
+# Large methylation datasets
+02_Processed_Data/Methylation/*.csv
+
+# Optional future large files
+*.tar
+*.bed
