@@ -13,8 +13,8 @@ library(minfi)
 library(IlluminaHumanMethylation450kanno.ilmn12.hg19)
 cat("Libraries loaded.\n")
 
-beta_file       <- "cleaned_gse130030_beta_matrix.csv"
-metadata_file   <- "GSE130030_phenotype_metadata_clean.csv"
+beta_file <- "02_Processed_Data/Methylation/GSE130030_beta_clean.csv"
+metadata_file <- "02_Processed_Data/Methylation/GSE130030_phenotype_metadata_clean.csv"
 
 dmp_output_file <- "DMPs_limma_results.csv"
 dmr_output_file <- "DMRs_dmrcate_results.csv"
@@ -39,6 +39,10 @@ if (!"MS_Stage" %in% colnames(metadata)) {
   stop("metadata must contain column 'MS_Stage'")
 }
 
+cat("MS Stage counts:\n")
+print(table(metadata$MS_Stage))
+cat("--------------------------------------\n")
+
 metadata$condition <- factor(metadata$MS_Stage, levels = c("RRMS","SPMS"))
 design <- model.matrix(~condition, data = metadata)
 
@@ -47,7 +51,16 @@ print(head(design))
 cat("Design rows:", nrow(design), "Beta columns:", ncol(beta_matrix), "\n")
 cat("--------------------------------------\n")
 
-m_matrix <- ilogit2(as.matrix(beta_matrix))
+beta_matrix <- as.matrix(beta_matrix)
+
+m_matrix <- log2((beta_matrix + 1e-6) / (1 - beta_matrix + 1e-6))
+
+print(class(beta_matrix))
+print(class(m_matrix))
+
+cat("Any infinite values:", sum(is.infinite(m_matrix)), "\n")
+cat("Any NA values:", sum(is.na(m_matrix)), "\n")
+
 cat("M-matrix dimensions:", dim(m_matrix), "\n")
 cat("--------------------------------------\n")
 
