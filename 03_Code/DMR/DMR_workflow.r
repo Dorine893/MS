@@ -13,14 +13,19 @@ library(minfi)
 library(IlluminaHumanMethylation450kanno.ilmn12.hg19)
 cat("Libraries loaded.\n")
 
-beta_file <- "02_Processed_Data/Methylation/GSE130030_beta_clean.csv"
-metadata_file <- "02_Processed_Data/Methylation/GSE130030_phenotype_metadata_clean.csv"
+beta_file <- "02_Processed_Data/Methylation/GSE130029_beta_clean_FIXED.csv"
+metadata_file <- "02_Processed_Data/Methylation/GSE130029_phenotype_metadata_clean.csv"
 
 dmp_output_file <- "DMPs_limma_results.csv"
 dmr_output_file <- "DMRs_dmrcate_results.csv"
 dmr_bed_file    <- "DMRs_dmrcate.bed"
 
-beta_matrix <- read.csv(beta_file, row.names = 1, check.names = FALSE)
+beta_matrix <- read.csv(
+    beta_file,
+    row.names = 1,
+    check.names = FALSE
+)
+
 metadata    <- read.csv(metadata_file, row.names = 1)
 
 cat("Original Beta Matrix samples:", ncol(beta_matrix), "\n")
